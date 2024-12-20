@@ -4,6 +4,7 @@ import com.artillexstudios.axapi.utils.ActionBar;
 import com.artillexstudios.axapi.utils.ItemBuilder;
 import com.artillexstudios.axapi.utils.StringUtils;
 import com.artillexstudios.axapi.utils.Title;
+import com.artillexstudios.axsellwands.api.events.AxSellwandsItemsFromSourceEvent;
 import com.artillexstudios.axsellwands.api.events.AxSellwandsSellEvent;
 import com.artillexstudios.axsellwands.hooks.HookManager;
 import com.artillexstudios.axsellwands.sellwands.Sellwand;
@@ -27,10 +28,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static com.artillexstudios.axsellwands.AxSellwands.CONFIG;
 import static com.artillexstudios.axsellwands.AxSellwands.LANG;
@@ -38,7 +36,7 @@ import static com.artillexstudios.axsellwands.AxSellwands.MESSAGEUTILS;
 
 public class SellwandUseListener implements Listener {
 
-    @EventHandler (ignoreCancelled = true, priority = EventPriority.HIGHEST)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onInteract(@NotNull PlayerInteractEvent event) {
         if (event.getItem() == null) return;
         final Block block = event.getClickedBlock();
@@ -51,11 +49,21 @@ public class SellwandUseListener implements Listener {
         final Player player = event.getPlayer();
 
         final ItemStack[] contents;
-        if (block.getState() instanceof Container)
+        if (block.getState() instanceof Container) {
             contents = ((Container) block.getState()).getInventory().getContents();
-        else if (block.getType() == Material.ENDER_CHEST)
+        } else if (block.getType() == Material.ENDER_CHEST) {
             contents = player.getEnderChest().getContents();
-        else return;
+        } else {
+            AxSellwandsItemsFromSourceEvent itemsFromSourceEvent = new AxSellwandsItemsFromSourceEvent(block);
+            Bukkit.getPluginManager().callEvent(itemsFromSourceEvent);
+
+            Collection<ItemStack> items = itemsFromSourceEvent.items();
+            if (items.isEmpty()) {
+                return;
+            }
+
+            contents = items.toArray(new ItemStack[0]);
+        }
 
         final boolean hasBypass = player.hasPermission("axsellwands.admin");
 
