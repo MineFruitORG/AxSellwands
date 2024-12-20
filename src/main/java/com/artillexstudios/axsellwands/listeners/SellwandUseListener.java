@@ -54,7 +54,15 @@ public class SellwandUseListener implements Listener {
         } else if (block.getType() == Material.ENDER_CHEST) {
             contents = player.getEnderChest().getContents();
         } else {
-            AxSellwandsItemsFromSourceEvent itemsFromSourceEvent = new AxSellwandsItemsFromSourceEvent(block);
+            AxSellwandsItemsFromSourceEvent itemsFromSourceEvent = new AxSellwandsItemsFromSourceEvent(
+                    event.getAction() == Action.RIGHT_CLICK_BLOCK
+                            ?
+                            AxSellwandsItemsFromSourceEvent.SellwandOperationType.SELL
+                            :
+                            AxSellwandsItemsFromSourceEvent.SellwandOperationType.INSPECT,
+                    block
+            );
+
             Bukkit.getPluginManager().callEvent(itemsFromSourceEvent);
 
             Collection<ItemStack> items = itemsFromSourceEvent.items();

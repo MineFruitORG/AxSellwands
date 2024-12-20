@@ -13,12 +13,18 @@ public class AxSellwandsItemsFromSourceEvent extends Event {
 
     private static final HandlerList HANDLER_LIST = new HandlerList();
 
+    private final SellwandOperationType operation;
     private final Block source;
 
     private final Collection<ItemStack> items = new ArrayList<>();
 
-    public AxSellwandsItemsFromSourceEvent(Block source) {
+    public AxSellwandsItemsFromSourceEvent(SellwandOperationType type, Block source) {
+        this.operation = type;
         this.source = source;
+    }
+
+    public SellwandOperationType operation() {
+        return operation;
     }
 
     public Block source() {
@@ -37,5 +43,10 @@ public class AxSellwandsItemsFromSourceEvent extends Event {
 
     public static HandlerList getHandlerList() {
         return HANDLER_LIST;
+    }
+
+    public enum SellwandOperationType {
+        SELL,
+        INSPECT
     }
 }
