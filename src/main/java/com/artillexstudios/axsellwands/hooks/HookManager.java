@@ -5,7 +5,6 @@ import com.artillexstudios.axapi.utils.StringUtils;
 import com.artillexstudios.axsellwands.hooks.currency.CoinsEngineHook;
 import com.artillexstudios.axsellwands.hooks.currency.CurrencyHook;
 import com.artillexstudios.axsellwands.hooks.currency.PlayerPointsHook;
-import com.artillexstudios.axsellwands.hooks.currency.RoyaleEconomyHook;
 import com.artillexstudios.axsellwands.hooks.currency.VaultHook;
 import com.artillexstudios.axsellwands.hooks.other.Placeholders;
 import com.artillexstudios.axsellwands.hooks.protection.BentoBoxHook;
@@ -13,11 +12,9 @@ import com.artillexstudios.axsellwands.hooks.protection.GriefPreventionHook;
 import com.artillexstudios.axsellwands.hooks.protection.HuskClaimsHook;
 import com.artillexstudios.axsellwands.hooks.protection.HuskTownsHook;
 import com.artillexstudios.axsellwands.hooks.protection.IridiumSkyBlockHook;
-import com.artillexstudios.axsellwands.hooks.protection.KingdomsXHook;
 import com.artillexstudios.axsellwands.hooks.protection.LandsHook;
 import com.artillexstudios.axsellwands.hooks.protection.PlotSquaredHook;
 import com.artillexstudios.axsellwands.hooks.protection.ProtectionHook;
-import com.artillexstudios.axsellwands.hooks.protection.ResidenceHook;
 import com.artillexstudios.axsellwands.hooks.protection.SaberFactionsHook;
 import com.artillexstudios.axsellwands.hooks.protection.SuperiorSkyBlock2Hook;
 import com.artillexstudios.axsellwands.hooks.protection.TownyHook;
@@ -69,10 +66,10 @@ public class HookManager {
             Bukkit.getConsoleSender().sendMessage(StringUtils.formatToString("&#33FF33[AxSellwands] Hooked into WorldGuard!"));
         }
 
-        if (HOOKS.getBoolean("hook-settings.Kingdoms.register", true) && Bukkit.getPluginManager().getPlugin("Kingdoms") != null) {
-            PROTECTION_HOOKS.add(new KingdomsXHook());
-            Bukkit.getConsoleSender().sendMessage(StringUtils.formatToString("&#33FF33[AxSellwands] Hooked into Kingdoms!"));
-        }
+//        if (HOOKS.getBoolean("hook-settings.Kingdoms.register", true) && Bukkit.getPluginManager().getPlugin("Kingdoms") != null) {
+//            PROTECTION_HOOKS.add(new KingdomsXHook());
+//            Bukkit.getConsoleSender().sendMessage(StringUtils.formatToString("&#33FF33[AxSellwands] Hooked into Kingdoms!"));
+//        }
 
         if (HOOKS.getBoolean("hook-settings.BentoBox.register", true) && Bukkit.getPluginManager().getPlugin("BentoBox") != null) {
             PROTECTION_HOOKS.add(new BentoBoxHook());
@@ -89,10 +86,10 @@ public class HookManager {
             Bukkit.getConsoleSender().sendMessage(StringUtils.formatToString("&#33FF33[AxSellwands] Hooked into Lands!"));
         }
 
-        if (HOOKS.getBoolean("hook-settings.Residence.register", true) && Bukkit.getPluginManager().getPlugin("Residence") != null) {
-            PROTECTION_HOOKS.add(new ResidenceHook());
-            Bukkit.getConsoleSender().sendMessage(StringUtils.formatToString("&#33FF33[AxSellwands] Hooked into Residence!"));
-        }
+//        if (HOOKS.getBoolean("hook-settings.Residence.register", true) && Bukkit.getPluginManager().getPlugin("Residence") != null) {
+//            PROTECTION_HOOKS.add(new ResidenceHook());
+//            Bukkit.getConsoleSender().sendMessage(StringUtils.formatToString("&#33FF33[AxSellwands] Hooked into Residence!"));
+//        }
 
         if (HOOKS.getBoolean("hook-settings.PlotSquared.register", true) && Bukkit.getPluginManager().getPlugin("PlotSquared") != null) {
             PROTECTION_HOOKS.add(new PlotSquaredHook());
@@ -154,12 +151,7 @@ public class HookManager {
             }
 
             case "ROYALEECONOMY": {
-                if (Bukkit.getPluginManager().getPlugin("RoyaleEconomy") != null) {
-                    currency = new RoyaleEconomyHook();
-                    Bukkit.getConsoleSender().sendMessage(StringUtils.formatToString("&#33FF33[AxSellwands] Hooked into RoyaleEconomy!"));
-                } else {
-                    Bukkit.getConsoleSender().sendMessage(StringUtils.formatToString("&#FF3333[AxSellwands] RoyaleEconomy is set in hooks.yml, but it is not installed, please download it or change it to stop errors!"));
-                }
+                Bukkit.getConsoleSender().sendMessage(StringUtils.formatToString("&#FF3333[AxSellwands] RoyaleEconomy is set in hooks.yml, but it is not installed, please download it or change it to stop errors!"));
                 break;
             }
         }
