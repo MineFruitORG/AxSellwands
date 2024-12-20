@@ -64,13 +64,7 @@ public class SellwandUseListener implements Listener {
             );
 
             Bukkit.getPluginManager().callEvent(itemsFromSourceEvent);
-
-            Collection<ItemStack> items = itemsFromSourceEvent.items();
-            if (items.isEmpty()) {
-                return;
-            }
-
-            contents = items.toArray(new ItemStack[0]);
+            contents = itemsFromSourceEvent.items().toArray(new ItemStack[0]);
         }
 
         final boolean hasBypass = player.hasPermission("axsellwands.admin");
